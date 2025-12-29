@@ -1,0 +1,30 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-4">
+        <div class="auth-container glass-effect animate-fade-in">
+            <h2 class="text-center mb-4 font-weight-bold">Welcome Back</h2>
+            <form method="POST">
+
+                <div class="mb-3">
+                    <label for="email" class="form-label text-muted">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
+                        required>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label text-muted">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                        placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 py-2 hover-pulse">Sign In</button>
+            </form>
+            <div class="mt-4 text-center">
+                <small class="text-muted">Don't have an account? <a href="{{ url_for('auth.register') }}">Register
+                        here</a></small><br>
+                <small class="text-muted"><a href="{{ url_for('auth.forgot_password') }}">Forgot Password?</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="animate-fade-in">
+    <h2 class="mb-4 text-center fw-bold">Portal Users</h2>
+
+    <div class="table-responsive shadow-sm rounded-3 overflow-hidden glass-effect">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th class="ps-3">ID</th>
+                    <th>Full Name</th>
+                    <th>Email Address</th>
+                    <th>Identity (Reg/Fac ID)</th>
+                    <th>Academic Level</th>
+                    <th class="pe-3">User Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr class="animate-slide-in" style="animation-delay: {{ loop.index0 * 0.05 }}s;">
+                    <td class="ps-3 text-muted">#{{ user.id }}</td>
+                    <td class="fw-bold">
+                        <i class="bi bi-person-circle text-primary me-2"></i>{{ user.full_name }}
+                    </td>
+                    <td class="text-muted">{{ user.email }}</td>
+                    <td>
+                        {% if user.role == 'admin' %}
+                        {{ user.faculty_id if user.faculty_id else 'Staff' }}
+                        {% else %}
+                        {{ user.registration_number if user.registration_number else 'N/A' }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.role == 'student' %}
+                        Year {{ user.year }} / Sem {{ user.semester }}
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.role == 'admin' %}
+                        <span class="badge bg-success">Faculty</span>
+                        {% else %}
+                        <span class="badge bg-primary">Student</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted">No users found in the system.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

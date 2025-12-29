@@ -1,0 +1,19 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Announcements</h2>
+
+<div class="list-group">
+    {% for announcement in announcements %}
+    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ announcement.title }}</h5>
+            <small>{{ announcement.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+        </div>
+        <p class="mb-1">{{ announcement.content }}</p>
+    </a>
+    {% else %}
+    <div class="alert alert-info">No announcements have been posted yet.</div>
+    {% endfor %}
+</div>
+{% endblock %}

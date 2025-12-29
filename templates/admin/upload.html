@@ -1,0 +1,87 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="animate-fade-in">
+    <h2 class="mb-4">Upload Materials & Videos</h2>
+
+    <div class="card glass-effect shadow-sm col-md-10 mx-auto">
+        <div class="card-header fw-bold"><i class="bi bi-cloud-upload-fill me-2"></i>Upload File</div>
+        <div class="card-body p-4">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <label for="file" class="form-label fw-bold">Select File</label>
+                        <input class="form-control" type="file" id="file" name="file" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">File Type</label>
+                        <div class="d-flex gap-3 mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="type" id="material" value="material"
+                                    checked>
+                                <label class="form-check-label" for="material">Material</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="type" id="video" value="video">
+                                <label class="form-check-label" for="video">Video</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="year" class="form-label fw-bold">Year</label>
+                        <select class="form-select" id="year" name="year" required>
+                            <option value="1">1st Year</option>
+                            <option value="2">2nd Year</option>
+                            <option value="3">3rd Year</option>
+                            <option value="4">4th Year</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label d-none d-md-block">&nbsp;</label>
+                        <button type="submit" class="btn btn-primary w-100 hover-pulse">Upload</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <h3 class="mt-5 mb-4 fw-bold"><i class="bi bi-clock-history me-2 text-primary"></i>Recent Uploads</h3>
+    <div class="table-responsive glass-effect rounded-3 shadow-sm border overflow-hidden">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th class="ps-3">Filename</th>
+                    <th>Type</th>
+                    <th>Year</th>
+                    <th>Date</th>
+                    <th class="pe-3">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for upload in uploads %}
+                <tr class="animate-slide-in">
+                    <td class="ps-3">
+                        <i
+                            class="bi {{ 'bi-file-earmark-text' if upload.file_type == 'material' else 'bi-play-circle' }} me-2 text-primary"></i>
+                        {{ upload.original_name }}
+                    </td>
+                    <td><span class="badge {{ 'bg-primary' if upload.file_type == 'material' else 'bg-success' }}">{{
+                            upload.file_type|capitalize }}</span></td>
+                    <td><span class="badge bg-info">Year {{ upload.year }}</span></td>
+                    <td class="text-muted">{{ upload.upload_date.strftime('%Y-%m-%d') }}</td>
+                    <td class="pe-3">
+                        <a href="{{ url_for('student.download_file', type=upload.file_type, filename=upload.filename) }}"
+                            class="btn btn-sm btn-outline-primary" target="_blank">View</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">No files uploaded yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="animate-fade-in">
+    <div class="d-flex align-items-center mb-4">
+        <i class="bi bi-megaphone-fill text-primary fs-2 me-3"></i>
+        <h2 class="mb-0 fw-bold">Manage Announcements</h2>
+    </div>
+
+    <div class="card glass-effect mb-4 shadow-sm">
+        <div class="card-header fw-bold">Post New Announcement</div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold"><i class="bi bi-type-h1 me-2"></i>Announcement
+                        Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="e.g. Holiday Notice"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label fw-semibold"><i class="bi bi-textarea-t me-2"></i>Content
+                        Details</label>
+                    <textarea class="form-control" id="content" name="content" rows="3"
+                        placeholder="Write your announcement here..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary hover-pulse">Post Announcement</button>
+            </form>
+        </div>
+    </div>
+
+    <h3>Recent Announcements</h3>
+    <div class="list-group shadow-sm rounded-3 overflow-hidden">
+        {% for announcement in announcements %}
+        <div class="list-group-item list-group-item-action animate-slide-in border-start border-primary border-4"
+            style="animation-delay: {{ loop.index0 * 0.05 }}s;">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1 text-primary fw-bold">{{ announcement.title }}</h5>
+                <small class="text-muted"><i class="bi bi-clock me-1"></i>{{ announcement.created_at.strftime('%d %b,
+                    %H:%M') }}</small>
+            </div>
+            <p class="mb-1 text-muted">{{ announcement.content }}</p>
+        </div>
+        {% else %}
+        <div class="list-group-item text-center text-muted">No announcements found.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

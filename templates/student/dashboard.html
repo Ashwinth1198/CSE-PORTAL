@@ -1,0 +1,74 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="jumbotron p-5 mb-4 rounded-3 animate-fade-in">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Welcome, {{ current_user.full_name }}!</h1>
+        <p class="fs-5 text-light opacity-75">Reg No: {{ current_user.registration_number }} | Year {{ current_user.year
+            }} | Semester {{ current_user.semester }}</p>
+        <p class="col-md-8 fs-4 mt-3">This is your student portal. Check announcements, download study materials, and
+            watch
+            lecture videos.</p>
+    </div>
+</div>
+
+<div class="row align-items-md-stretch">
+    <div class="col-md-4">
+        <div class="h-100 p-5 text-white bg-dark rounded-3 animate-slide-in glass-effect"
+            style="animation-delay: 0.1s;">
+            <h2>Announcements</h2>
+            <p>Catch up on the latest <strong>{{ announcement_count }}</strong> updates.</p>
+            <a href="{{ url_for('student.announcements') }}" class="btn btn-outline-light hover-pulse"
+                type="button">View All</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="h-100 p-5 bg-card border rounded-3 animate-slide-in glass-effect" style="animation-delay: 0.2s;">
+            <h2>Study Materials</h2>
+            <p>Access your <strong>{{ material_count }}</strong> shared documents.</p>
+            <a href="{{ url_for('student.materials') }}" class="btn btn-outline-primary hover-pulse" type="button">Go to
+                Materials</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="h-100 p-5 text-white bg-secondary rounded-3 animate-slide-in glass-effect"
+            style="animation-delay: 0.3s; background: var(--bg-jumbotron) !important;">
+            <h2>Video Lectures</h2>
+            <p>Watch one of the <strong>{{ video_count }}</strong> recorded sessions.</p>
+            <a href="{{ url_for('student.videos') }}" class="btn btn-light hover-pulse" type="button">Watch Videos</a>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Announcements Section -->
+<div class="row mt-5">
+    <div class="col-12">
+        <h3 class="mb-3"><i class="bi bi-megaphone-fill text-warning"></i> Latest Announcements</h3>
+        {% if recent_announcements %}
+        <div class="row">
+            {% for announcement in recent_announcements %}
+            <div class="col-md-6 mb-3">
+                <div class="card glass-effect animate-fade-in" style="animation-delay: {{ loop.index * 0.1 }}s;">
+                    <div class="card-header bg-gradient"
+                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <h5 class="mb-0 text-white">{{ announcement.title }}</h5>
+                        <small class="text-light opacity-75">
+                            <i class="bi bi-calendar-event"></i> {{ announcement.created_at.strftime('%B %d, %Y at %I:%M
+                            %p') }}
+                        </small>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ announcement.content }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-secondary glass-effect">
+            <i class="bi bi-info-circle"></i> No announcements available at the moment. Check back later!
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

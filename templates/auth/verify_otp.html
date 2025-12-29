@@ -1,0 +1,21 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-4">
+        <div class="auth-container glass-effect animate-fade-in">
+            <h2 class="text-center mb-4 font-weight-bold">Verify OTP</h2>
+            <p class="text-center text-muted mb-4">An OTP has been sent to <strong>{{ session.get('reset_mobile')
+                    }}</strong></p>
+            <form method="POST">
+                <div class="mb-4">
+                    <label for="otp" class="form-label text-muted">Enter OTP</label>
+                    <input type="text" class="form-control text-center" id="otp" name="otp" placeholder="XXXX"
+                        maxlength="4" style="font-size: 1.5rem; letter-spacing: 0.5rem;" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 py-2">Verify & Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

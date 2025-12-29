@@ -1,0 +1,52 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-5">
+        <div class="auth-container glass-effect animate-fade-in">
+            <div class="text-center mb-4">
+                <i class="bi bi-person-workspace display-4 text-success"></i>
+                <h2 class="font-weight-bold mt-2">Faculty Registration</h2>
+                <p class="text-muted small">Access administrative tools</p>
+            </div>
+
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="full_name" class="form-label text-muted">Full Name</label>
+                    <input type="text" class="form-control" id="full_name" name="full_name"
+                        placeholder="Enter your full name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label text-muted">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="faculty_id" class="form-label text-muted">Faculty ID</label>
+                    <input type="text" class="form-control" id="faculty_id" name="faculty_id"
+                        placeholder="Enter your official faculty ID" required>
+                </div>
+                <div class="mb-3">
+                    <label for="secret_code" class="form-label text-muted">
+                        <i class="bi bi-shield-lock-fill text-warning"></i> Admin Secret Code
+                    </label>
+                    <input type="password" class="form-control" id="secret_code" name="secret_code"
+                        placeholder="Enter the admin secret code" required>
+                    <small class="text-muted">Contact administration if you don't have the code</small>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label text-muted">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                        placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="btn btn-success w-100 py-2 hover-pulse">Register as Faculty</button>
+            </form>
+
+            <div class="mt-4 text-center">
+                <small class="text-muted"><a href="{{ url_for('auth.register') }}"><i class="bi bi-arrow-left"></i>
+                        Change Account Type</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

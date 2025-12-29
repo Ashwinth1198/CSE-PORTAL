@@ -1,0 +1,41 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-8 text-center animate-fade-in">
+        <h1 class="mb-5 fw-bold">Select Your Account Type</h1>
+
+        <div class="row">
+            <!-- Student Option -->
+            <div class="col-md-6 mb-4">
+                <a href="{{ url_for('auth.register_student') }}" class="text-decoration-none">
+                    <div class="auth-container glass-effect h-100 hover-pulse p-5">
+                        <i class="bi bi-mortarboard-fill display-1 text-primary mb-3"></i>
+                        <h2 class="fw-bold text-main">Student</h2>
+                        <p class="text-muted">Register as a student to access study materials, announcements, and
+                            lectures.</p>
+                        <div class="btn btn-primary w-100 mt-3">Register as Student</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Faculty Option -->
+            <div class="col-md-6 mb-4">
+                <a href="{{ url_for('auth.register_faculty') }}" class="text-decoration-none">
+                    <div class="auth-container glass-effect h-100 hover-pulse p-5">
+                        <i class="bi bi-person-workspace display-1 text-success mb-3"></i>
+                        <h2 class="fw-bold text-main">Faculty</h2>
+                        <p class="text-muted">Register as a faculty member to manage announcements and upload study
+                            materials.</p>
+                        <div class="btn btn-success w-100 mt-3">Register as Faculty</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <p class="text-muted">Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

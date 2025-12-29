@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">CSE Portal</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        {% if current_user.is_authenticated %}
+        {% if current_user.role == 'admin' %}
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'admin.dashboard' %}active{% endif %}"
+            href="{{ url_for('admin.dashboard') }}">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'admin.announcements' %}active{% endif %}"
+            href="{{ url_for('admin.announcements') }}">Announcements</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'admin.uploads' %}active{% endif %}"
+            href="{{ url_for('admin.uploads') }}">Uploads</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'admin.users' %}active{% endif %}"
+            href="{{ url_for('admin.users') }}">Users</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'student.dashboard' %}active{% endif %}"
+            href="{{ url_for('student.dashboard') }}">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'student.announcements' %}active{% endif %}"
+            href="{{ url_for('student.announcements') }}">Announcements</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'student.materials' %}active{% endif %}"
+            href="{{ url_for('student.materials') }}">Materials</a></li>
+        <li class="nav-item"><a class="nav-link {% if request.endpoint == 'student.videos' %}active{% endif %}"
+            href="{{ url_for('student.videos') }}">Videos</a></li>
+        {% endif %}
+        <li class="nav-item ms-2">
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+            <i class="bi bi-moon-fill"></i>
+          </button>
+        </li>
+        <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2 text-white"
+            href="{{ url_for('auth.logout') }}">Logout</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a></li>
+        <li class="nav-item ms-2">
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+            <i class="bi bi-moon-fill"></i>
+          </button>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
